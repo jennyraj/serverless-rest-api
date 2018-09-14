@@ -18,12 +18,16 @@ const contactsCollection = 'contacts';
 
 export const webApi = functions.https.onRequest(main);
 
+app.post('/sms', (req, res) => {
+    console.log('>>>Dummy Request Received:'+ JSON.stringify(req.body))
+    res.send('@@@Dummy Request Received');
+})
 
 // Add new contact
 app.post('/contacts', (req, res) => {
     firebaseHelper.firestore
-        .creatNewDocument(db, contactsCollection, req.body);
-    res.send('Create a new contact');
+        .createNewDocument(db, contactsCollection, req.body);
+    res.send('Created a new contact');
 })
 
 // Update new contact
@@ -42,6 +46,7 @@ app.get('/contacts/:contactId', (req, res) => {
 
 // View all contacts
 app.get('/contacts', (req, res) => {
+    console.log('getting all contacts')
     firebaseHelper.firestore
         .backup(db, contactsCollection)
         .then(data => res.status(200).send(data))
