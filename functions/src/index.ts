@@ -18,9 +18,15 @@ const contactsCollection = 'contacts';
 
 export const webApi = functions.https.onRequest(main);
 
+app.post('/smsinbound', (req, res) => {
+    console.log('>>>Inbound data:'+ JSON.stringify(req.body))
+    res.send('>>>Inbound data:');
+})
+
+
 app.post('/sms', (req, res) => {
-    console.log('>>>Dummy Request Received:'+ JSON.stringify(req.body))
-    res.send('@@@Dummy Request Received');
+    console.log('>>>Outbound Log:'+ JSON.stringify(req.body))
+    res.send('>>>Outbound Log');
 })
 
 // Add new contact
